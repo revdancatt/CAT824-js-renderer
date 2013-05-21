@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+    <head>
+    <title>CAT824 js render</title>
+    <link rel="stylesheet" media="all" href="/css/main.css?v=0.1">
+    <!--[if gte IE 9]>
+      <style type="text/css">
+        .gradient {
+           filter: none;
+        }
+      </style>
+    <![endif]-->
+</head>
+<body>
+
+
+    <div class="holder">
+
+        <div class="left">
+            <div class="threeHolder">
+            </div>
+            <div class="threeControls">
+                cursors = around, zoom in/out<br />
+                q/a = camera up/down<br />
+                w/s = target up/down<br />
+                r = render
+            </div>
+        </div>
+
+        <div class="right">
+            <div class="outputHolder">
+            </div>
+            <div class="outputControls">
+
+                Quality:
+                <lable><input type="radio" name="quality" value="high">high </lable>
+                <lable><input type="radio" name="quality" value="low" checked>low </lable>
+                <br />
+                Size:
+                <lable><input type="radio" name="size" value="25">25% </lable>
+                <lable><input type="radio" name="size" value="50">50% </lable>
+                <lable><input type="radio" name="size" value="100" checked>100% </lable>
+                <lable><input type="radio" name="size" value="200">200% </lable>
+                <lable><input type="radio" name="size" value="400">400% </lable>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <script src="/js/jquery-2.0.0.min.js"></script> 
+    <script src="/js/three.min.js"></script>
+    <script src="/js/control.js?v=0.5.2"></script>
+    <script>
+        $(document).ready(function() {
+            control.init();
+        })
+    </script>    
+
+</body>
+</html>
