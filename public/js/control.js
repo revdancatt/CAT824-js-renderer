@@ -8,6 +8,7 @@ control = {
     camera: null,
     scene: null,
     renderer: null,
+    rendering: false,
 
     //  Now we want to keep track of where we want to move the camera
     //  do. We basically have a camera that sits on a "dolly" that
@@ -47,7 +48,7 @@ control = {
 
     */
     //  The position holds all this infomation
-    position: {around: 90.0, radius: 600.0, height: 300.0, lookat: 100.0},
+    position: {around: 90.0, radius: 600.0, height: 300.0, lookat: 300.0},
 
     //  There's also a bit going on about adjusting the camera position
     //  rather than just moving it as I press down keys I'm actually
@@ -95,9 +96,10 @@ control = {
 
         this.camera = new THREE.PerspectiveCamera( 35, this.baseWidth / this.baseHeight, 1, 10000 );
         this.scene = new THREE.Scene();
-        this.renderer = new THREE.CanvasRenderer();
+        this.renderer = new THREE.WebGLRenderer({antialias: true});
         this.renderer.setSize( $('.threeHolder').width(), $('.threeHolder').height() );
         $('.threeHolder').append( $(this.renderer.domElement) );
+
 
         //  Now we are going to create a handy material, two ball objects that's
         //  are kind of fun to throw around for testing, a cube and a floor object.
@@ -125,7 +127,7 @@ control = {
         //  see an example of a mesh being added to THREE and
         //  getting correctly passed back to the backend.
         /*
-        for (var i = 1; i < 20; i++) {
+        for (var i = 1; i < 80; i++) {
             this.scene.add( this.makeCobra(i) );
         }
         */
@@ -134,6 +136,7 @@ control = {
         //  cubes to the scene. Sunflow doesn't have a "cube" or "box"
         //  primative object, so this is a good test of converting
         //  a THREE primative into a mesh that's usable by Sunflow
+        /*
         var newCube = null;
         var color = new THREE.Color( 0xff0000 );
         for (var i = 1; i < 280; i++) {
@@ -154,6 +157,7 @@ control = {
             newCube.name = 'Cube-' + (i + 5);
             this.scene.add(newCube);
         }
+        */
 
         //  The loop below would add 20 variously positioned spheres
         //  to the scene. Both THREE and Sunflow have a primative sphere
@@ -416,7 +420,9 @@ control = {
         var newScale = (Math.random()/4) + 0.25;
 
         //  Make the mesh, add the geometry then position, rotate and scale it.
-        var newMesh = new THREE.Mesh( geom, material );
+        var color = new THREE.Color( 0xff0000 );
+        color.setRGB(Math.random(), Math.random(), Math.random());
+        var newMesh = new THREE.Mesh( geom, new THREE.MeshBasicMaterial( { color: color, wireframe: true } ) );
         newMesh.position.x = Math.floor(Math.random() * 600) - 300;
         newMesh.position.y = 50 + Math.floor(Math.random() * 400);
         newMesh.position.z = Math.floor(Math.random() * 600) - 300;
@@ -461,6 +467,8 @@ control = {
         } catch(er) {
             //  do nowt            
         }
+
+        this.rendering = true;
 
         //  First of all we are going to work out a bunch of
         //  parameters to deal with, make the empty param thing
@@ -663,6 +671,7 @@ control = {
                                     $('<img>').attr('src', '/' + filename + '.png?v=' + Math.random())
                                 )
                         );
+                        control.rendering = false;
                     }, 2500);
 
                 } else {
