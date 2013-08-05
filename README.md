@@ -1,4 +1,6 @@
-CAT824-js-renderer
+![Screen Shot](http://cattopus23.com/img/panel-CAT824.jpg)
+
+CAT824 JS Renderer
 ==================
 
 Javascript + THREEjs frontend to Sunflow renderer
